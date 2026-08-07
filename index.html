@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>.SmiskiOS</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body style="background-image: url('./background.jpg'); background-size: cover; background-position: center; background-repeat: no-repeat; min-height: 100vh; color: rgb(166, 199, 126); font-family: 'Garamond', serif; font-weight: bold; margin: 0; padding: 0 var(--banner-width);">
+        <div class="banner banner-left" aria-hidden="true"></div>
+        <div class="banner banner-right" aria-hidden="true"></div>
+
+        <div style="max-width: 800px; margin: 0 auto; padding: 30px 10px 30px 0;">
+            <div class="frame"> 
+                
+                <div class="top-row">
+                    <h1>SmiskiOS</h1>
+                    <div class="time-link-row">
+                        <p id="timeElement" class="timestamp">loading time...</p>
+                        <a class="repo-link" href="https://github.com/hannnah-gu/SmiskiOS" target="_blank" rel="noopener noreferrer">Github Repo!</a>
+                    </div>
+                </div>
+
+                <div class="title-row">
+                    <img class="smiski-image" src="./smiski.png" alt="Smiski Left" />
+                    <img class="BIG-SMISKI" src="./smiski2.png" alt="Smiski Top" />
+                </div>
+            
+                <div class="selected" id="desktopApps" style="padding-top: 64px; padding-left: 16px; position: relative; min-height: 400px;">
+                    
+                    <div id="timerApp" class="app-icon" onclick="openWindow('timerWindow')" style="filter: drop-shadow(0 0 8px rgb(133, 151, 106)); cursor: move;">
+                        <button type="button" class="app-close-btn" onclick="closeWindow('timerApp', event)">ⓧ</button>
+                        <img src="./icon.png" alt="Timer Icon" style="width: 64px; height: 64px; border-radius: 16px; display: block; margin: 0 auto;">
+                        <p style="margin: 4px 0 0 0; color: #fff;">study timer</p>
+                    </div>
+
+                    <div id="notesApp" class="app-icon" onclick="openWindow('notesWindow')" style="filter: drop-shadow(0 0 8px rgb(133, 151, 106)); cursor: move;">
+                        <button type="button" class="app-close-btn" onclick="closeWindow('notesApp', event)">ⓧ</button>
+                        <img src="./notes.png" alt="Notes Icon" style="width: 64px; height: 64px; border-radius: 16px; display: block; margin: 0 auto;">
+                        <p style="margin: 4px 0 0 0; color: #fff;">quick note</p>
+                    </div>
+                </div>
+
+                <div id="window" class="window" style="background-image: url('./window.jpg');">
+                    <button type="button" class="close-btn" onclick="closeWindow('window', event)">ⓧ</button>
+                    <h2 style="margin: 0 0 14px 0; padding-left: 12px; padding-top: 60px; font-size: 24px;">About</h2>
+                    <p style="margin: 0; padding-left: 20px; padding-right: 20px; font-size: 15px; line-height: 2;">Welcome to SmiskiOS, an operating system made for students. This OS contains study tools to optimize focus and increase engagement. Rearrange the windows to your own satisfaction!</p>
+                </div>
+
+                <div id="timerWindow" class="window" style="display: none; background-image: url('./timerWindow.png'); top: 180px; left: 180px;">
+                    <button type="button" class="close-btn" onclick="closeWindow('timerWindow', event)">ⓧ</button>
+                
+                    <h2 style="margin: 0 0 10px 0; padding-top: 20px; padding-left: 120px; font-size: 22px;">My Timer</h2>
+                
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; height: 180px; padding: 0 15px; box-sizing: border-box;">
+                    
+                        <div id="timer-sidebar" style="width: 30%; border-right: 1px solid rgb(193, 255, 118); padding-right: 0px; padding-top: 20px; display: flex; flex-direction: column; gap: 6px;">
+                            <button type="button" class="timer-btn" onclick="setTimerDuration(25)">25m Focus</button>
+                            <button type="button" class="timer-btn" onclick="setTimerDuration(5)">5m Break</button>
+                            <button type="button" class="timer-btn" onclick="setTimerDuration(15)">15m Break</button>
+                        </div>
+
+                        <div id="timer-display" style="width: 70%; padding-left: 6px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px;">
+                            <div id="countdown-digits" style="font-size: 32px; font-weight: bold; color: #7b9e6b; font-family: Impact, sans-serif;">
+                                25:00
+                            </div>
+                        
+                            <div style="display: flex; gap: 8px;">
+                                <button type="button" id="start-timer-btn" class="timer-btn primary" onclick="toggleTimer()">Start</button>
+                                <button type="button" class="timer-btn" onclick="resetTimer()">Reset</button>
+                            </div>
+                        </div>
+
+                    </div>
+                </div> <div id="notesWindow" class="window" style="display: none; background-image: url('./notesWindow.png'); top: 180px; left: 180px;">
+                    <button type="button" class="close-btn" onclick="closeWindow('notesWindow', event)">ⓧ</button>
+                
+                    <h2 style="margin: 0 0 10px 0; padding-top: 20px; padding-left: 120px; font-size: 22px;">Quick Note</h2>
+                
+                    <div style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; height: 180px; padding: 0 15px; box-sizing: border-box;">
+                    
+                        <textarea id="quickNoteArea" placeholder="start writing..." style="width: 100%; height: 110px; border-radius: 8px; border: 1px solid rgba(166, 199, 126, 0.6); background: rgba(255, 255, 255, 0.85); padding: 10px; font-family: inherit; font-size: 14px; color: #4a633f; resize: none; box-sizing: border-box; outline: none;"></textarea>
+                    
+                        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+                            <button type="button" class="timer-btn" onclick="saveQuickNote()">Save</button>
+                            <span id="noteStatus" style="font-size: 12px; opacity: 0.8; font-family: sans-serif;"></span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+</html>
